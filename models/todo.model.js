@@ -13,6 +13,7 @@ const todoSchema = new mongoose.Schema({
   },
   finalizado: {
     type: Boolean,
+    required: true,
     default: false
   },
   dataEntrega: {

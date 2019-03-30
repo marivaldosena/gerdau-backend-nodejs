@@ -1,14 +1,15 @@
 const db = require('../models')
 
 exports.getAllTodos = (req, res) => {
-  console.log('getAllTodos')
   db.Todo.find()
   .then(todos => res.json(todos))
   .catch(err => res.send(err))
 }
 
 exports.createTodo = (req, res) => {
-  db.Todo.create(req.body)
+  const { todo, tipo, dataEntrega }  = req.body
+
+  db.Todo.create({ todo, tipo, dataEntrega })
   .then(newTodo => res.status(201).json(newTodo))
   .catch(err => res.send(err))
 }
