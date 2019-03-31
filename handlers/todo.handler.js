@@ -21,8 +21,10 @@ exports.getTodo = (req, res) => {
 }
 
 exports.updateTodo = (req, res) => {
+  const { todo, tipo, dataEntrega, finalizado } = req.body
+
   db.Todo.findOneAndUpdate({ _id: req.params.todoId },
-    req.body, { new: true })
+    { todo, tipo, dataEntrega, finalizado }, { new: true })
   .then(todo => res.status(200).json(todo))
   .catch(err => res.send(err))
 }
