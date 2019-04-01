@@ -9,3 +9,4 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/gerdau-todos', 
 })
 
 module.exports.Todo = require('./todo.model')
+module.exports.User = require('./user.model')

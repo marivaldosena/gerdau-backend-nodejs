@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const User = require('./user.model')
 
 const todoSchema = new mongoose.Schema({
   todo: { 
@@ -18,6 +19,24 @@ const todoSchema = new mongoose.Schema({
   },
   dataEntrega: {
     type: Date,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
+}, {
+  timestamps: true
+})
+
+todoSchema.pre('remove', async function(next) {
+  try {
+      let user = await User.findById(this.userId)
+      user.todo.remove(this.id)
+      await user.save()
+
+      return next()
+  } catch(e) {
+      return next(e)
   }
 })
 
